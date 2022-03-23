@@ -1,4 +1,4 @@
-String capsLock(String word, [int index = 0]) {
+String capsLock(String word, {int index = 0}) {
   late String newWord;
   if (index <= word.length && index >= 0) {
     String _pos = word[index];
