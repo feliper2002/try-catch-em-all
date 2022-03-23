@@ -2,7 +2,7 @@ import 'package:try_catch_em_all/app/modules/pokedex/external/models/pokedex_mod
 import 'package:try_catch_em_all/app/modules/pokedex/infra/datasource/pokedex_contract/pokedex_contract.dart';
 import 'package:uno/uno.dart';
 
-class PokedexDatasource implements PokedexContract {
+class PokedexDatasource implements PokedexDatasourceContract {
   final Uno client;
 
   PokedexDatasource(this.client);
