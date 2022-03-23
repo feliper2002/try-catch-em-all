@@ -19,9 +19,16 @@ class PokemonModel extends Pokemon {
     return PokemonModel(
       number: map['entry_number']?.toInt(),
       name: map['pokemon_species']['name'],
-      // info: map['pokemon_species']['url'] != null
-      //     ? PokemonInfoModel.fromMap(map['pokemon_species']['url'])
-      //     : null,
+    );
+  }
+
+  factory PokemonModel.fromMapWithINFO(Map<String, dynamic> map) {
+    return PokemonModel(
+      number: map['entry_number']?.toInt(),
+      name: map['pokemon_species']['name'],
+      info: map['pokemon_species']['url'] != null
+          ? PokemonInfoModel.fromMap(map['pokemon_species']['url'])
+          : null,
     );
   }
 

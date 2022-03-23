@@ -1,7 +1,5 @@
 // ignore_for_file: overridden_fields, annotate_overrides
 
-import 'dart:convert';
-
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon_info.dart';
 
 class PokemonInfoModel extends PokemonInfo {
@@ -18,7 +16,4 @@ class PokemonInfoModel extends PokemonInfo {
       description: map['flavor_text_entries'][0]['flavor_text'],
     );
   }
-
-  factory PokemonInfoModel.fromJson(String source) =>
-      PokemonInfoModel.fromMap(json.decode(source));
 }
