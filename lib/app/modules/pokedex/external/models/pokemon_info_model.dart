@@ -12,7 +12,7 @@ class PokemonInfoModel extends PokemonInfo {
 
   factory PokemonInfoModel.fromMap(Map<String, dynamic> map) {
     return PokemonInfoModel(
-      color: map['color'],
+      color: map['color']['name'],
       description: map['flavor_text_entries'][0]['flavor_text'],
     );
   }

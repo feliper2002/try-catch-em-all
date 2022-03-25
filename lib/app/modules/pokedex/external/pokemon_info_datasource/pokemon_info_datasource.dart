@@ -2,7 +2,7 @@ import 'package:try_catch_em_all/app/modules/pokedex/external/models/pokemon_inf
 import 'package:try_catch_em_all/app/modules/pokedex/infra/datasource/pokemon_info_contract/pokemon_info_contract.dart';
 import 'package:uno/uno.dart';
 
-class PokemonInfoDatasource implements PokemonInfoContract {
+class PokemonInfoDatasource implements PokemonInfoDatasourceContract {
   final Uno client;
 
   PokemonInfoDatasource(this.client);
@@ -22,3 +22,15 @@ class PokemonInfoDatasource implements PokemonInfoContract {
     return PokemonInfoModel.fromMap(response.data);
   }
 }
+
+// Future<void> main() async {
+//   final client = Uno();
+//   final baseURL = "https://pokeapi.co/api/v2/pokemon-species/87/";
+
+//   final datasource = PokemonInfoDatasource(client);
+
+//   final response = await datasource.getPokemonInfo(baseURL);
+
+//   print(response.description);
+//   print(response.color);
+// }

@@ -1,12 +1,10 @@
-import 'pokemon_info.dart';
-
 class Pokemon {
   final int? number;
   final String? name;
-  final PokemonInfo? info;
+  final String? url;
   Pokemon({
     this.number,
     this.name,
-    this.info,
+    this.url,
   });
 }
