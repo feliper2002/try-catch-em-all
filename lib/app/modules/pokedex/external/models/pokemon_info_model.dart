@@ -13,7 +13,10 @@ class PokemonInfoModel extends PokemonInfo {
   factory PokemonInfoModel.fromMap(Map<String, dynamic> map) {
     return PokemonInfoModel(
       color: map['color']['name'],
-      description: map['flavor_text_entries'][0]['flavor_text'],
+      description: (map['flavor_text_entries'][
+              (map['flavor_text_entries'] as List)
+                  .indexWhere((element) => element['language']['name'] == 'en')]
+          ['flavor_text']),
     );
   }
 }

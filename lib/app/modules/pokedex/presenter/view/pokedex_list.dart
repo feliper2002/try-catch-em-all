@@ -17,7 +17,7 @@ class _PokedexListState extends State<PokedexList> {
 
   @override
   void initState() {
-    controller.getPokedex("5");
+    controller.getPokedex("1");
     super.initState();
   }
 
