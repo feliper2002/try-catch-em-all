@@ -23,6 +23,12 @@ class _PokemonDescriptionState extends State<PokemonDescription> {
   }
 
   @override
+  void dispose() {
+    controller.getPokedex("1");
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
