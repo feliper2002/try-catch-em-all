@@ -11,6 +11,8 @@ import 'package:try_catch_em_all/app/modules/pokedex/infra/datasource/pokemon_in
 import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokedex_repository/pokedex_repository_impl.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokemon_info_repository/pokemon_info_repository_impl.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokedex_list.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_desc.dart';
 import 'package:uno/uno.dart';
 
 class PokedexModule extends Module {
@@ -30,6 +32,8 @@ class PokedexModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, args) => Container()),
+        ChildRoute('/', child: (_, args) => const PokedexList()),
+        ChildRoute('/info',
+            child: (_, args) => PokemonDescription(url: args.data)),
       ];
 }
