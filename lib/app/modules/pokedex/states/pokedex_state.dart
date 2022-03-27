@@ -1,4 +1,5 @@
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokedex.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon_form.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon_info.dart';
 
 abstract class PokedexState {}
@@ -17,6 +18,12 @@ class PokedexPokemonInfoSuccessState extends PokedexState {
   final PokemonInfo info;
 
   PokedexPokemonInfoSuccessState(this.info);
+}
+
+class PokedexPokemonFormSuccessState extends PokedexState {
+  final PokemonForm form;
+
+  PokedexPokemonFormSuccessState(this.form);
 }
 
 class PokedexErrorState extends PokedexState {
