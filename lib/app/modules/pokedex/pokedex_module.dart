@@ -13,7 +13,7 @@ import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokedex_
 import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokemon_info_repository/pokemon_info_repository_impl.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokedex_list.dart';
-import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_desc.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/pokemon_info_card.dart';
 import 'package:uno/uno.dart';
 
 import 'domain/repositories/pokemon_form_contract/pokemon_form_contract.dart';
@@ -44,6 +44,10 @@ class PokedexModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, args) => const PokedexList()),
         ChildRoute('/info',
-            child: (_, args) => PokemonDescription(url: args.data)),
+            child: (_, args) => PokemonInfoCard(
+                  url: args.data['url'],
+                  id: args.data['id'],
+                  name: args.data['name'],
+                )),
       ];
 }

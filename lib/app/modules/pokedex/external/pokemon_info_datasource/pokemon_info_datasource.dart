@@ -22,15 +22,3 @@ class PokemonInfoDatasource implements PokemonInfoDatasourceContract {
     return PokemonInfoModel.fromMap(response.data);
   }
 }
-
-// Future<void> main() async {
-//   final client = Uno();
-//   final baseURL = "https://pokeapi.co/api/v2/pokemon-species/87/";
-
-//   final datasource = PokemonInfoDatasource(client);
-
-//   final response = await datasource.getPokemonInfo(baseURL);
-
-//   print(response.description);
-//   print(response.color);
-// }

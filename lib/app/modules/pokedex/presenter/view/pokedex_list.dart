@@ -37,7 +37,11 @@ class _PokedexListState extends State<PokedexList> {
                 final pokemon = entries[index];
                 return GestureDetector(
                   onTap: () async {
-                    await Modular.to.pushNamed('/info', arguments: pokemon.url);
+                    await Modular.to.pushNamed('/info', arguments: {
+                      'url': pokemon.url,
+                      'id': (pokemon.number).toString(),
+                      'name': pokemon.name,
+                    });
                   },
                   child: Text(
                     capsLock(pokemon.name!),
