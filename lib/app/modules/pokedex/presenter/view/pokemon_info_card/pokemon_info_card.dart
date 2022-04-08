@@ -54,7 +54,8 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  Text("${capsLock(form.name!)} #${form.id}",
+                  Text(
+                      "${capsLock(form.name!)} #${form.id.toString().padLeft(3, '0')}",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,

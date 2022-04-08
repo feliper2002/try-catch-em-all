@@ -1,4 +1,5 @@
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokedex.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon_form.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon_info.dart';
 
