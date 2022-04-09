@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokedex.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokemon_form.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokemon_info.dart';
@@ -13,6 +14,8 @@ class PokedexController extends ValueNotifier<PokedexState> {
   final GetPokemonInfoContract _getPokemonInfoUsecase;
   final GetPokemonFormContract _getPokemonFormUsecase;
 
+  final searchController = TextEditingController();
+
   Future<void> getPokedex(String pokedexID) async {
     final response = await _getPokedexUsecase(pokedexID);
 
@@ -23,6 +26,17 @@ class PokedexController extends ValueNotifier<PokedexState> {
         value = error;
       },
       (pokedex) {
+        List<Pokemon> entries = pokedex.pokemonEntries!.where((entry) {
+          if (searchController.text.isEmpty) {
+            return true;
+          }
+          return (entry.name)!
+                  .toLowerCase()
+                  .contains(searchController.text.toLowerCase()) ||
+              (entry.number!.toString())
+                  .contains(searchController.text.toLowerCase());
+        }).toList();
+        pokedex = pokedex.copyWith(pokemonEntries: entries);
         value = PokedexSuccessState(pokedex);
       },
     );
