@@ -31,6 +31,12 @@ class _PokedexListState extends State<PokedexList> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.mainBgColor,
