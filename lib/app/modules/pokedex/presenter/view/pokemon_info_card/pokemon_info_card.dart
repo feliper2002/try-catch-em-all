@@ -4,6 +4,7 @@ import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/card_
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_image_screen.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_info_tab.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/presenter/widgets/pokemon_type_tag/pokemon_type_tag.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
 import 'package:try_catch_em_all/utils/functions/caps_lock_index.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
@@ -60,13 +61,6 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
                         color: Colors.white,
                         fontSize: 20,
                       )),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (var type in form.types!) Text(capsLock(type!) + " "),
-                    ],
-                  ),
                   const SizedBox(height: 20),
                   PokemonImageScreen(sprite: form.spriteFrontDefault!),
                   PokemonInfoTab(pageController: pageController),
