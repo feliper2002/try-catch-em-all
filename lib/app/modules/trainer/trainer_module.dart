@@ -2,7 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hasura_connect/hasura_connect.dart';
 import 'package:try_catch_em_all/app/modules/trainer/external/data/create_trainer_database.dart';
 import 'package:try_catch_em_all/app/modules/trainer/external/data/delete_trainer_database.dart';
-import 'package:try_catch_em_all/app/modules/trainer/external/data/get_trainer_id.dart';
+import 'package:try_catch_em_all/app/modules/trainer/external/data/get_trainer_database.dart';
 
 class TrainerModule extends Module {
   @override
