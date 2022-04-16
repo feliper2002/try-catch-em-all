@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:try_catch_em_all/app/modules/trainer/states/trainer_states.dart';
+import 'package:try_catch_em_all/app/core/errors/app_errors.dart';
 
 abstract class DeleteTrainerRepositoryContract {
-  Future<Either<ErrorTrainerState, void>> deleteTrainer(String id);
+  Future<Either<LoadDataError, void>> deleteTrainer(String id);
 }

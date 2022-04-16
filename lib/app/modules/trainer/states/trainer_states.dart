@@ -6,6 +6,8 @@ class InitialTrainerState extends TrainerState {}
 
 class LoadingTrainerState extends TrainerState {}
 
+class SuccessActionTrainerState extends TrainerState {}
+
 class SuccessTrainerState extends TrainerState {
   final TrainerModel trainer;
 
