@@ -1,13 +1,17 @@
+// ignore_for_file: overridden_fields, annotate_overrides
+
 import 'dart:convert';
 
-class PokemonHasuraModel {
+import 'package:try_catch_em_all/app/modules/trainer/domain/entities/pokemon_hasura.dart';
+
+class PokemonHasuraModel extends PokemonHasura {
   final int num;
   final String name;
 
   PokemonHasuraModel({
     required this.num,
     required this.name,
-  });
+  }) : super(0, '');
 
   factory PokemonHasuraModel.fromMap(Map<String, dynamic> map) {
     return PokemonHasuraModel(

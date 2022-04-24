@@ -1,15 +1,17 @@
+// ignore_for_file: overridden_fields, annotate_overrides
+
 import 'dart:convert';
 
+import 'package:try_catch_em_all/app/modules/trainer/domain/entities/trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/external/models/pokemon_hasura_model.dart';
 
-class TrainerModel {
+class TrainerModel extends Trainer {
   final String id;
   final String name;
   final int age;
   final String gender;
   final String region;
   final List<PokemonHasuraModel> pokemons;
-
   TrainerModel({
     required this.id,
     required this.name,
@@ -17,7 +19,7 @@ class TrainerModel {
     required this.gender,
     required this.region,
     required this.pokemons,
-  });
+  }) : super(id: '', name: '', age: 0, gender: '', region: '', pokemons: []);
 
   factory TrainerModel.fromMap(Map<String, dynamic> map) {
     return TrainerModel(
