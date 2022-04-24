@@ -1,4 +1,4 @@
-import 'package:try_catch_em_all/app/modules/trainer/external/models/trainer_model.dart';
+import 'package:try_catch_em_all/app/modules/trainer/domain/entities/trainer.dart';
 
 abstract class TrainerState {}
 
@@ -9,7 +9,7 @@ class LoadingTrainerState extends TrainerState {}
 class SuccessActionTrainerState extends TrainerState {}
 
 class SuccessTrainerState extends TrainerState {
-  final TrainerModel trainer;
+  final Trainer trainer;
 
   SuccessTrainerState(this.trainer);
 }

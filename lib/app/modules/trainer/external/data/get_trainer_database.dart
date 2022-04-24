@@ -14,7 +14,7 @@ class GetTrainerByIDDatabase implements GetTrainerByIDDatabaseContract {
   Future<TrainerModel> getTrainerByID(String id) async {
     var query = '''
 query GetTrainerByID {
-  trainers(where: {id: {_eq: $id}}) {
+  trainers(where: {id: {_eq: "$id"}}) {
     id
     name
     gender
