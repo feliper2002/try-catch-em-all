@@ -1,6 +1,6 @@
 class PokemonHasura {
-  final int num;
+  final String number;
   final String name;
 
-  PokemonHasura(this.num, this.name);
+  PokemonHasura(this.number, this.name);
 }

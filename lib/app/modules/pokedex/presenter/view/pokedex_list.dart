@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_search_field.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_tile.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
-import 'package:try_catch_em_all/utils/functions/caps_lock_index.dart';
 import 'package:try_catch_em_all/utils/themes/app_colors.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
@@ -43,6 +41,14 @@ class _PokedexListState extends State<PokedexList> {
       appBar: AppBar(
         backgroundColor: Colors.red,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await Modular.to.pushNamed('/trainer/');
+            },
+            icon: const Icon(Icons.person, color: Colors.white),
+          ),
+        ],
       ),
       body: Column(
         children: [
