@@ -1,19 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hasura_connect/hasura_connect.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/repositories/pokedex_contract/pokedex_contract.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/repositories/pokemon_info_contract/pokemon_info_contract.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/add_pokemon_party.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokedex.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokemon_form.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokemon_info.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/external/pokedex_datasource/pokedex_datasource_impl.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/external/pokemon_info_datasource/pokemon_info_datasource.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/external/pokemon_party_datasource/add_pokemon_party_datasource.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/infra/datasource/pokedex_contract/pokedex_contract.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/infra/datasource/pokemon_info_contract/pokemon_info_contract.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokedex_repository/pokedex_repository_impl.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokemon_info_repository/pokemon_info_repository_impl.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokemon_party_repositories/add_pokemon_party_repository.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokedex_list.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/pokemon_info_card.dart';
+import 'package:try_catch_em_all/utils/constants/app_constants.dart';
 import 'package:uno/uno.dart';
 
 import 'domain/repositories/pokemon_form_contract/pokemon_form_contract.dart';
@@ -36,8 +41,19 @@ class PokedexModule extends Module {
         Bind((i) => GetPokedex(i.get<PokedexRepositoryContract>())),
         Bind((i) => GetPokemonInfo(i.get<PokemonInfoRepositoryContract>())),
         Bind((i) => GetPokemonForm(i.get<PokemonFormRepositoryContract>())),
-        Bind((i) => PokedexController(i.get<GetPokedexContract>(),
-            i.get<GetPokemonInfoContract>(), i.get<GetPokemonFormContract>())),
+
+        /// [AddPokemonParty]
+        Bind((i) => HasuraConnect(AppConstants.hasuraURL)),
+        Bind((i) => AddPokemonPartyDatasource(i.get<HasuraConnect>())),
+        Bind((i) =>
+            AddPokemonPartyRepository(i.get<AddPokemonPartyDatasource>())),
+        Bind((i) => AddPokemonParty(i.get<AddPokemonPartyRepository>())),
+
+        Bind((i) => PokedexController(
+            i.get<GetPokedexContract>(),
+            i.get<GetPokemonInfoContract>(),
+            i.get<GetPokemonFormContract>(),
+            i.get<AddPokemonParty>())),
       ];
 
   @override

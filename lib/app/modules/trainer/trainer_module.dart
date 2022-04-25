@@ -11,12 +11,12 @@ import 'package:try_catch_em_all/app/modules/trainer/infra/repositories/delete_t
 import 'package:try_catch_em_all/app/modules/trainer/infra/repositories/get_trainer_repository.dart';
 import 'package:try_catch_em_all/app/modules/trainer/presenter/controllers/trainer_controller.dart';
 import 'package:try_catch_em_all/app/modules/trainer/presenter/view/trainer_page.dart';
+import 'package:try_catch_em_all/utils/constants/app_constants.dart';
 
 class TrainerModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind((i) =>
-            HasuraConnect("https://try-catch-em-all.herokuapp.com/v1/graphql")),
+        Bind((i) => HasuraConnect(AppConstants.hasuraURL)),
 
         /// [CreateTrainer]
         Bind((i) => CreateTrainerDatabase(i.get<HasuraConnect>())),
