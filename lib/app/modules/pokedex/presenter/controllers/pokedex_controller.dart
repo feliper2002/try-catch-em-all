@@ -26,7 +26,7 @@ class PokedexController extends ValueNotifier<PokedexState> {
 
     return response.fold(
       (error) {
-        value = error;
+        value = PokedexErrorState(error.message);
       },
       (pokedex) {
         List<Pokemon> entries = pokedex.pokemonEntries!.where((entry) {

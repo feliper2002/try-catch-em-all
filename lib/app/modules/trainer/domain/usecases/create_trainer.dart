@@ -3,7 +3,7 @@ import 'package:try_catch_em_all/app/core/errors/app_errors.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/repositories/create_trainer_repository_contract.dart';
 
 abstract class CreateTrainerContract {
-  Future<Either<LoadDataError, void>> call(
+  Future<Either<LoadDataError, String>> call(
       String name, int age, String gender, String region);
 }
 
@@ -13,7 +13,7 @@ class CreateTrainer implements CreateTrainerContract {
   CreateTrainer(this.repository);
 
   @override
-  Future<Either<LoadDataError, void>> call(
+  Future<Either<LoadDataError, String>> call(
       String name, int age, String gender, String region) async {
     if (name.isEmpty) {
       return Left(LoadDataError("O nome do(a) treinador(a) é obrigatório!"));

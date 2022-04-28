@@ -6,7 +6,9 @@ import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_info_tab.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/widgets/pokemon_type_tag/pokemon_type_tag.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
+import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 import 'package:try_catch_em_all/utils/functions/caps_lock_index.dart';
+import 'package:try_catch_em_all/utils/themes/app_colors.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
 class PokemonInfoCard extends StatefulWidget {
@@ -24,9 +26,12 @@ class PokemonInfoCard extends StatefulWidget {
 class _PokemonInfoCardState extends State<PokemonInfoCard> {
   final controller = Modular.get<PokedexController>();
 
+  late TrainerStorage storage;
+
   @override
   void initState() {
     controller.getPokemonForm(widget.id!);
+    storage = TrainerStorage();
     super.initState();
   }
 
@@ -63,6 +68,17 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
                       )),
                   const SizedBox(height: 20),
                   PokemonImageScreen(sprite: form.spriteFrontDefault!),
+                  ElevatedButton(
+                    onPressed: () async {
+                      // ! VER URGENTE
+                      final trainerID = await storage.id;
+                      await controller.addPokemonParty("${form.id}", trainerID);
+                    },
+                    child: Container(
+                      color: AppColors.darkGrey,
+                      child: const Text("Adicionar ao time"),
+                    ),
+                  ),
                   PokemonInfoTab(pageController: pageController),
                   SizedBox(
                     height: size.height * .5,

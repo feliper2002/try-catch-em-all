@@ -8,7 +8,7 @@ class CreateTrainerDatabase implements CreateTrainerDatabaseContract {
   final HasuraConnect connect;
 
   @override
-  Future<void> createTrainer(
+  Future<String> createTrainer(
       String name, int age, String gender, String region) async {
     var mutation = '''
     mutation CreateTrainer {
@@ -16,17 +16,16 @@ class CreateTrainerDatabase implements CreateTrainerDatabaseContract {
     affected_rows
     returning {
       id
-      name
-      gender
-      age
-      region
-      created_at
     }
   }
 }
 ''';
     try {
-      await connect.mutation(mutation);
+      final mut = await connect.mutation(mutation);
+      final data = mut['data'];
+      final returning = data['returning'][0];
+      final id = returning['id'];
+      return id;
     } on HasuraError catch (_) {
       throw DatabaseHasuraConnectionError(
           "Não foi possível se conectar com o Hasura.");

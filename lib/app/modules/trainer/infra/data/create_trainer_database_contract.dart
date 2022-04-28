@@ -1,4 +1,4 @@
 abstract class CreateTrainerDatabaseContract {
-  Future<void> createTrainer(
+  Future<String> createTrainer(
       String name, int age, String gender, String region);
 }
