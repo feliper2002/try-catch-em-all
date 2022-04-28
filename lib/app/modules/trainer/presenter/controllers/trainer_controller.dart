@@ -53,8 +53,16 @@ class TrainerController extends ValueNotifier<TrainerState> {
     );
   }
 
-  Future<void> getTrainer(String id) async {
-    final usecase = await getTrainerContract(id);
+  Future<void> getTrainer() async {
+    String _id = '';
+
+    bool exists = await storage.trainerExists();
+
+    if (exists) {
+      _id = await storage.id;
+    }
+
+    final usecase = await getTrainerContract(_id);
 
     value = LoadingTrainerState();
 

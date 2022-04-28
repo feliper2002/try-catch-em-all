@@ -3,13 +3,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class TrainerStorageContract {
   Future recordID(String id);
   Future clear();
+  Future<String> get id;
+  Future<bool> trainerExists();
 }
 
 class TrainerStorage implements TrainerStorageContract {
   late SharedPreferences prefs;
 
-  _initStorage() async {
+  Future<SharedPreferences> _initStorage() async {
     prefs = await SharedPreferences.getInstance();
+    return prefs;
   }
 
   TrainerStorage() {
@@ -28,6 +31,7 @@ class TrainerStorage implements TrainerStorageContract {
     await prefs.setString('id', id);
   }
 
+  @override
   Future<String> get id async {
     final prefs = await SharedPreferences.getInstance();
     final _id = prefs.getString('id') ?? "";
@@ -35,7 +39,9 @@ class TrainerStorage implements TrainerStorageContract {
     return _id;
   }
 
+  @override
   Future<bool> trainerExists() async {
+    // await clear();
     final _id = await id;
     return _id.isNotEmpty;
   }
