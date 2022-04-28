@@ -46,7 +46,8 @@ class TrainerController extends ValueNotifier<TrainerState> {
       (error) {
         value = ErrorTrainerState(error.message);
       },
-      (_) {
+      (_) async {
+        await storage.clear();
         value = SuccessActionTrainerState();
       },
     );

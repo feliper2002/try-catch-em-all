@@ -4,6 +4,7 @@ import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/poked
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_search_field.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_tile.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
+import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 import 'package:try_catch_em_all/utils/themes/app_colors.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
@@ -17,8 +18,18 @@ class PokedexList extends StatefulWidget {
 class _PokedexListState extends State<PokedexList> {
   final controller = Modular.get<PokedexController>();
 
+  final TrainerStorage storage = TrainerStorage();
+
   @override
   void initState() {
+    storage.trainerExists().then((exists) {
+      if (exists) {
+        return;
+      } else {
+        Modular.to.navigate("/trainer/create");
+      }
+    });
+
     controller.getPokedex("1");
 
     controller.searchController.addListener(() {
@@ -30,7 +41,13 @@ class _PokedexListState extends State<PokedexList> {
 
   @override
   void dispose() {
-    controller.dispose();
+    storage.trainerExists().then((exists) {
+      if (exists) {
+        controller.dispose();
+      } else {
+        return;
+      }
+    });
     super.dispose();
   }
 

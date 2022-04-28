@@ -22,9 +22,10 @@ class CreateTrainerDatabase implements CreateTrainerDatabaseContract {
 ''';
     try {
       final mut = await connect.mutation(mutation);
-      final data = mut['data'];
+      final data = mut['data']['insert_trainers'];
       final returning = data['returning'][0];
       final id = returning['id'];
+      print("ID $id");
       return id;
     } on HasuraError catch (_) {
       throw DatabaseHasuraConnectionError(
