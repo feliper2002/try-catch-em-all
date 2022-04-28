@@ -49,11 +49,13 @@ class PokedexModule extends Module {
             AddPokemonPartyRepository(i.get<AddPokemonPartyDatasource>())),
         Bind((i) => AddPokemonParty(i.get<AddPokemonPartyRepository>())),
 
-        Bind((i) => PokedexController(
-            i.get<GetPokedexContract>(),
-            i.get<GetPokemonInfoContract>(),
-            i.get<GetPokemonFormContract>(),
-            i.get<AddPokemonParty>())),
+        Bind(
+          (i) => PokedexController(
+              i.get<GetPokedexContract>(),
+              i.get<GetPokemonInfoContract>(),
+              i.get<GetPokemonFormContract>(),
+              i.get<AddPokemonParty>()),
+        ),
       ];
 
   @override

@@ -6,19 +6,22 @@ import 'package:try_catch_em_all/app/modules/trainer/states/trainer_states.dart'
 import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 
 class TrainerController extends ValueNotifier<TrainerState> {
-  TrainerController(this.createTrainerContract, this.deleteTrainerContract,
-      this.getTrainerContract)
-      : super(InitialTrainerState());
+  TrainerController(
+    this.createTrainerContract,
+    this.deleteTrainerContract,
+    this.getTrainerContract,
+    this.storage,
+  ) : super(InitialTrainerState());
 
   final CreateTrainerContract createTrainerContract;
   final DeleteTrainerContract deleteTrainerContract;
   final GetTrainerContract getTrainerContract;
 
+  final TrainerStorageContract storage;
+
   Future<void> createTrainer(
       String name, int age, String gender, String region) async {
     final usecase = await createTrainerContract(name, age, gender, region);
-
-    final storage = TrainerStorage();
 
     value = LoadingTrainerState();
 

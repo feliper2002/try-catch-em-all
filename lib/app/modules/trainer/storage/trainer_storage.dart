@@ -1,6 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TrainerStorage {
+abstract class TrainerStorageContract {
+  Future recordID(String id);
+}
+
+class TrainerStorage implements TrainerStorageContract {
   late SharedPreferences prefs;
 
   _initStorage() async {
@@ -11,6 +15,7 @@ class TrainerStorage {
     _initStorage();
   }
 
+  @override
   Future recordID(String id) async {
     await prefs.setString('id', id);
   }
