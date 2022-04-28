@@ -3,15 +3,21 @@ import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/create_trai
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/delete_trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/get_trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/states/trainer_states.dart';
+import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 
 class TrainerController extends ValueNotifier<TrainerState> {
-  TrainerController(this.createTrainerContract, this.deleteTrainerContract,
-      this.getTrainerContract)
-      : super(InitialTrainerState());
+  TrainerController(
+    this.createTrainerContract,
+    this.deleteTrainerContract,
+    this.getTrainerContract,
+    this.storage,
+  ) : super(InitialTrainerState());
 
   final CreateTrainerContract createTrainerContract;
   final DeleteTrainerContract deleteTrainerContract;
   final GetTrainerContract getTrainerContract;
+
+  final TrainerStorageContract storage;
 
   Future<void> createTrainer(
       String name, int age, String gender, String region) async {
@@ -23,7 +29,9 @@ class TrainerController extends ValueNotifier<TrainerState> {
       (error) {
         value = ErrorTrainerState(error.message);
       },
-      (_) {
+      (trainerID) async {
+        // ? TESTAR FUNCIONAMENTO
+        await storage.recordID(trainerID);
         value = SuccessActionTrainerState();
       },
     );

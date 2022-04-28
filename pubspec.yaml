@@ -35,6 +35,7 @@ dependencies:
   google_fonts: 2.2.0
   hasura_connect: ^4.0.0+2
   intl: ^0.17.0
+  shared_preferences: ^2.0.13
   uno: ^1.0.1+3
 
 dev_dependencies:

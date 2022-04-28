@@ -11,12 +11,13 @@ import 'package:try_catch_em_all/app/modules/trainer/infra/repositories/delete_t
 import 'package:try_catch_em_all/app/modules/trainer/infra/repositories/get_trainer_repository.dart';
 import 'package:try_catch_em_all/app/modules/trainer/presenter/controllers/trainer_controller.dart';
 import 'package:try_catch_em_all/app/modules/trainer/presenter/view/trainer_page.dart';
+import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
+import 'package:try_catch_em_all/utils/constants/app_constants.dart';
 
 class TrainerModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind((i) =>
-            HasuraConnect("https://try-catch-em-all.herokuapp.com/v1/graphql")),
+        Bind((i) => HasuraConnect(AppConstants.hasuraURL)),
 
         /// [CreateTrainer]
         Bind((i) => CreateTrainerDatabase(i.get<HasuraConnect>())),
@@ -33,9 +34,18 @@ class TrainerModule extends Module {
         Bind((i) => GetTrainerRepository(i.get<GetTrainerByIDDatabase>())),
         Bind((i) => GetTrainer(i.get<GetTrainerRepository>())),
 
+        /// [TrainerStorage]
+        Bind((i) => TrainerStorage()),
+
         /// [TrainerController]
-        Bind((i) => TrainerController(i.get<CreateTrainer>(),
-            i.get<DeleteTrainer>(), i.get<GetTrainer>())),
+        Bind(
+          (i) => TrainerController(
+            i.get<CreateTrainer>(),
+            i.get<DeleteTrainer>(),
+            i.get<GetTrainer>(),
+            i.get<TrainerStorage>(),
+          ),
+        ),
       ];
 
   @override

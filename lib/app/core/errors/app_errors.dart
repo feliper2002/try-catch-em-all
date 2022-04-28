@@ -29,3 +29,7 @@ class DatabaseHasuraConnectionError extends AppFailure {
 class LoadDataError extends AppFailure {
   LoadDataError(String message) : super(message);
 }
+
+class UsecaseDataError extends LoadDataError {
+  UsecaseDataError(String message) : super(message);
+}
