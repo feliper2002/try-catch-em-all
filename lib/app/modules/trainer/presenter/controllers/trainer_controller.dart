@@ -19,6 +19,20 @@ class TrainerController extends ValueNotifier<TrainerState> {
 
   final TrainerStorageContract storage;
 
+  final nameController = TextEditingController();
+  final ageController = TextEditingController();
+
+  Future<String> _getTrainerID() async {
+    String _id = '';
+
+    bool exists = await storage.trainerExists();
+
+    if (exists) {
+      _id = await storage.id;
+    }
+    return _id;
+  }
+
   Future<void> createTrainer(
       String name, int age, String gender, String region) async {
     final usecase = await createTrainerContract(name, age, gender, region);
@@ -30,15 +44,16 @@ class TrainerController extends ValueNotifier<TrainerState> {
         value = ErrorTrainerState(error.message);
       },
       (trainerID) async {
-        // ? TESTAR FUNCIONAMENTO
         await storage.recordID(trainerID);
         value = SuccessActionTrainerState();
       },
     );
   }
 
-  Future<void> deleteTrainer(String id) async {
-    final usecase = await deleteTrainerContract(id);
+  Future<void> deleteTrainer() async {
+    final _id = await _getTrainerID();
+
+    final usecase = await deleteTrainerContract(_id);
 
     value = LoadingTrainerState();
 
@@ -54,13 +69,7 @@ class TrainerController extends ValueNotifier<TrainerState> {
   }
 
   Future<void> getTrainer() async {
-    String _id = '';
-
-    bool exists = await storage.trainerExists();
-
-    if (exists) {
-      _id = await storage.id;
-    }
+    final _id = await _getTrainerID();
 
     final usecase = await getTrainerContract(_id);
 
