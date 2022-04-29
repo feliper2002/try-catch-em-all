@@ -10,6 +10,7 @@ import 'package:try_catch_em_all/app/modules/trainer/infra/repositories/create_t
 import 'package:try_catch_em_all/app/modules/trainer/infra/repositories/delete_trainer_repository.dart';
 import 'package:try_catch_em_all/app/modules/trainer/infra/repositories/get_trainer_repository.dart';
 import 'package:try_catch_em_all/app/modules/trainer/presenter/controllers/trainer_controller.dart';
+import 'package:try_catch_em_all/app/modules/trainer/presenter/view/create_trainer_page.dart';
 import 'package:try_catch_em_all/app/modules/trainer/presenter/view/trainer_page.dart';
 import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 import 'package:try_catch_em_all/utils/constants/app_constants.dart';
@@ -50,6 +51,7 @@ class TrainerModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
+        ChildRoute('/create', child: (_, args) => CreateTrainerPage()),
         ChildRoute('/', child: (_, args) => const TrainerPage()),
       ];
 }

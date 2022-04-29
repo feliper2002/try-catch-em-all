@@ -18,7 +18,7 @@ class _TrainerPageState extends State<TrainerPage> {
 
   @override
   void initState() {
-    controller.getTrainer("b06d80cb-6899-4550-9647-c2d228beb216");
+    controller.getTrainer();
     super.initState();
   }
 
