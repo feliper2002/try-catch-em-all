@@ -4,20 +4,41 @@ import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/add_pokemon
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokedex.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokemon_form.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokemon_info.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_trainer_party.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
+import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 
 class PokedexController extends ValueNotifier<PokedexState> {
-  PokedexController(this._getPokedexUsecase, this._getPokemonInfoUsecase,
-      this._getPokemonFormUsecase, this._addPokemonPartyUsecase)
-      : super(PokedexInitialState());
+  PokedexController(
+    this._getPokedexUsecase,
+    this._getPokemonInfoUsecase,
+    this._getPokemonFormUsecase,
+    this._addPokemonPartyUsecase,
+    this.storage,
+    this._getTrainerPartyUsecase,
+  ) : super(PokedexInitialState());
 
   final GetPokedexContract _getPokedexUsecase;
   final GetPokemonInfoContract _getPokemonInfoUsecase;
   final GetPokemonFormContract _getPokemonFormUsecase;
 
   final AddPokemonPartyContract _addPokemonPartyUsecase;
+  final GetTrainerPartyContract _getTrainerPartyUsecase;
+
+  final TrainerStorage storage;
 
   final searchController = TextEditingController();
+
+  Future<String> _getTrainerID() async {
+    String _id = '';
+
+    bool exists = await storage.trainerExists();
+
+    if (exists) {
+      _id = await storage.id;
+    }
+    return _id;
+  }
 
   Future<void> getPokedex([String pokedexID = '1']) async {
     final response = await _getPokedexUsecase(pokedexID);
@@ -75,8 +96,11 @@ class PokedexController extends ValueNotifier<PokedexState> {
     );
   }
 
-  Future<void> addPokemonParty(String pokemonNumber, String trainerID) async {
-    final response = await _addPokemonPartyUsecase(pokemonNumber, trainerID);
+  Future<void> addPokemonParty(String pokemonNumber, String name) async {
+    final trainerID = await _getTrainerID();
+
+    final response =
+        await _addPokemonPartyUsecase(pokemonNumber, name, trainerID);
 
     value = PokedexLoadingState();
 
@@ -86,6 +110,23 @@ class PokedexController extends ValueNotifier<PokedexState> {
       },
       (_) {
         value = PokedexPokemonAddPartySuccessState();
+      },
+    );
+  }
+
+  Future<void> getTrainerParty() async {
+    final trainerID = await _getTrainerID();
+
+    final response = await _getTrainerPartyUsecase(trainerID);
+
+    value = PokedexLoadingState();
+
+    return response.fold(
+      (error) {
+        value = PokedexErrorState(error.message);
+      },
+      (party) {
+        value = PokedexPokemonListTrainerPartyState(party);
       },
     );
   }

@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:try_catch_em_all/app/modules/trainer/domain/entities/trainer.dart';
-import 'package:try_catch_em_all/app/modules/trainer/external/models/pokemon_hasura_model.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/external/models/pokemon_hasura_model.dart';
 
 class TrainerModel extends Trainer {
   final String id;

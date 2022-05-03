@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:try_catch_em_all/app/modules/trainer/domain/entities/pokemon_hasura.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon_hasura.dart';
 
 class PokemonHasuraModel extends PokemonHasura {
   final String number;
@@ -11,12 +11,12 @@ class PokemonHasuraModel extends PokemonHasura {
   PokemonHasuraModel({
     required this.number,
     required this.name,
-  }) : super("", '');
+  }) : super("", "");
 
   factory PokemonHasuraModel.fromMap(Map<String, dynamic> map) {
     return PokemonHasuraModel(
       number: map['num'] ?? "",
-      name: map['name'] ?? '',
+      name: map['name'] ?? "",
     );
   }
 

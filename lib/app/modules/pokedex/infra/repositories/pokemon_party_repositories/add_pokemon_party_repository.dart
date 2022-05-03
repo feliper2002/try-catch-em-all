@@ -10,9 +10,10 @@ class AddPokemonPartyRepository implements AddPokemonPartyRepositoryContract {
 
   @override
   Future<Either<LoadDataError, void>> addPokemonParty(
-      String pokemonNumber, String trainerID) async {
+      String pokemonNumber, String name, String trainerID) async {
     try {
-      final data = await datasource.addPokemonParty(pokemonNumber, trainerID);
+      final data =
+          await datasource.addPokemonParty(pokemonNumber, name, trainerID);
       return Right(data);
     } on DatabaseConnectionError catch (e) {
       throw Left(LoadDataError(e.message));

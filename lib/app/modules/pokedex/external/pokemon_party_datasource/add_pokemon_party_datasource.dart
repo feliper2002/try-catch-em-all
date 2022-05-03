@@ -8,12 +8,14 @@ class AddPokemonPartyDatasource implements AddPokemonPartyDatasourceContract {
   AddPokemonPartyDatasource(this.connect);
 
   @override
-  Future<void> addPokemonParty(String pokemonNumber, String trainerID) async {
+  Future<void> addPokemonParty(
+      String pokemonNumber, String name, String trainerID) async {
     var mutation = '''
 mutation AddPokemonToParty {
-  insert_pokemon_one(object: {num: "$pokemonNumber", trainer_id: "$trainerID"}) {
+  insert_pokemon_one(object: {num: "$pokemonNumber", name: "$name", trainer_id: "$trainerID"}) {
     trainer_id
     num
+    name
   }
 }
 ''';

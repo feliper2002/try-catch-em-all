@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon.dart';
 import 'package:try_catch_em_all/utils/functions/caps_lock_index.dart';
+import 'package:try_catch_em_all/utils/widgets/flat_pokeball.dart';
 
 class PokemonTile extends StatelessWidget {
   final Pokemon pokemon;
@@ -26,7 +27,7 @@ class PokemonTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Image.asset("assets/images/flat-pokeball.png", scale: 18),
+            const FlatPokeball(),
             const SizedBox(width: 6),
             Text(
               (pokemon.number).toString().padLeft(3, '0') +

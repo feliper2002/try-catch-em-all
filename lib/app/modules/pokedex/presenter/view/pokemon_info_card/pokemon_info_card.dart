@@ -4,20 +4,15 @@ import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/card_
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_image_screen.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_info_tab.dart';
-import 'package:try_catch_em_all/app/modules/pokedex/presenter/widgets/pokemon_type_tag/pokemon_type_tag.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
-import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 import 'package:try_catch_em_all/utils/functions/caps_lock_index.dart';
 import 'package:try_catch_em_all/utils/themes/app_colors.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
 class PokemonInfoCard extends StatefulWidget {
-  final String? url;
   final String? id;
-  final String? name;
 
-  const PokemonInfoCard({Key? key, this.url, this.id, this.name})
-      : super(key: key);
+  const PokemonInfoCard({Key? key, this.id}) : super(key: key);
 
   @override
   State<PokemonInfoCard> createState() => _PokemonInfoCardState();
@@ -26,12 +21,9 @@ class PokemonInfoCard extends StatefulWidget {
 class _PokemonInfoCardState extends State<PokemonInfoCard> {
   final controller = Modular.get<PokedexController>();
 
-  late TrainerStorage storage;
-
   @override
   void initState() {
     controller.getPokemonForm(widget.id!);
-    storage = TrainerStorage();
     super.initState();
   }
 
@@ -70,13 +62,14 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
                   PokemonImageScreen(sprite: form.spriteFrontDefault!),
                   ElevatedButton(
                     onPressed: () async {
-                      // ! VER URGENTE
-                      final trainerID = await storage.id;
-                      await controller.addPokemonParty("${form.id}", trainerID);
+                      await controller.addPokemonParty(
+                          form.id.toString().padLeft(3, '0'), form.name!);
                     },
-                    child: Container(
-                      color: AppColors.darkGrey,
-                      child: const Text("Adicionar ao time"),
+                    child: const Text("Adicionar ao time"),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.darkRed),
+                      elevation: MaterialStateProperty.all(0),
                     ),
                   ),
                   PokemonInfoTab(pageController: pageController),
