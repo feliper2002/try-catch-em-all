@@ -12,7 +12,7 @@ class GetTrainerPartyDatasource implements GetTrainerPartyDatasourceContract {
   Future<List<PokemonHasuraModel>> getTrainerParty(String id) async {
     var query = '''
 query ListPokemon {
-  trainers(where: {id: {_eq: "24f7d18d-3907-4ddf-a026-7d040260005f"}}) {
+  trainers(where: {id: {_eq: "$id"}}) {
     pokemons {
       num
       name

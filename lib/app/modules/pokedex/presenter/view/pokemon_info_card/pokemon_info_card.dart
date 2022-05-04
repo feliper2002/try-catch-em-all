@@ -29,7 +29,8 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
 
   @override
   void dispose() {
-    controller.getPokedex("1");
+    controller.getPokedex();
+    Modular.to.navigate("/");
     super.dispose();
   }
 
@@ -101,6 +102,12 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
               ),
             );
           }
+
+          if (value is PokedexPokemonAddPartySuccessState) {
+            controller.getPokedex();
+            Modular.to.navigate("/");
+          }
+
           return const Loader(color: Colors.white);
         },
       ),

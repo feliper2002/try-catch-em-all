@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
 import 'package:try_catch_em_all/utils/widgets/flat_pokeball.dart';
@@ -28,20 +29,32 @@ class _TrainerPartyPageState extends State<TrainerPartyPage> {
       body: ValueListenableBuilder(
         valueListenable: controller,
         builder: (_, value, child) {
+          child = const Loader();
           if (value is PokedexPokemonListTrainerPartyState) {
             final party = value.party;
             child = ListView.builder(
               itemCount: party.length,
               itemBuilder: (_, index) {
                 final poke = party[index];
-                return Row(
-                  children: [
-                    const FlatPokeball(),
-                    const SizedBox(width: 6),
-                    Text(poke.number),
-                    const Spacer(),
-                    Text(poke.name),
-                  ],
+                return GestureDetector(
+                  onTap: () async {
+                    final number = NumberFormat().parse(poke.number).toInt();
+                    await Modular.to
+                        .pushNamed("/info", arguments: {"id": "$number"});
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    child: Row(
+                      children: [
+                        const FlatPokeball(),
+                        const SizedBox(width: 6),
+                        Text(poke.number),
+                        const Spacer(),
+                        Text(poke.name),
+                      ],
+                    ),
+                  ),
                 );
               },
             );
@@ -52,8 +65,6 @@ class _TrainerPartyPageState extends State<TrainerPartyPage> {
           if (value is PokedexErrorState) {
             child = Center(child: Text(value.message!));
           }
-
-          child = const Loader();
           return child;
         },
       ),

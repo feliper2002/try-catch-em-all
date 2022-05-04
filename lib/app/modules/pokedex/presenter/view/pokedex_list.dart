@@ -30,10 +30,10 @@ class _PokedexListState extends State<PokedexList> {
       }
     });
 
-    controller.getPokedex("1");
+    controller.getPokedex();
 
     controller.searchController.addListener(() {
-      controller.getPokedex("1");
+      controller.getPokedex();
     });
 
     super.initState();

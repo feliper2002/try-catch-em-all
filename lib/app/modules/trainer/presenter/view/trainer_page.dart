@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:try_catch_em_all/app/modules/trainer/presenter/controllers/trainer_controller.dart';
 import 'package:try_catch_em_all/app/modules/trainer/states/trainer_states.dart';
+import 'package:try_catch_em_all/utils/themes/app_colors.dart';
 import 'package:try_catch_em_all/utils/themes/app_styles.dart';
 import 'package:try_catch_em_all/utils/widgets/back_button.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
@@ -26,6 +27,26 @@ class _TrainerPageState extends State<TrainerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 8),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(AppColors.darkRed),
+              ),
+              onPressed: () async {
+                Modular.to.pushNamed('/party');
+              },
+              child: Row(
+                children: const [
+                  Icon(Icons.computer, color: Colors.white),
+                  SizedBox(width: 5),
+                  Text("Party"),
+                ],
+              ),
+            ),
+          ),
+        ],
         leading: const BackBtnIcon(),
       ),
       body: ValueListenableBuilder(

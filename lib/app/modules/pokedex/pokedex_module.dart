@@ -21,6 +21,7 @@ import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokemon_
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokedex_list.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/pokemon_info_card.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/trainer_party_page.dart';
 import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 import 'package:try_catch_em_all/utils/constants/app_constants.dart';
 import 'package:uno/uno.dart';
@@ -81,5 +82,6 @@ class PokedexModule extends Module {
             child: (_, args) => PokemonInfoCard(
                   id: args.data['id'],
                 )),
+        ChildRoute('/party', child: (_, args) => const TrainerPartyPage()),
       ];
 }
