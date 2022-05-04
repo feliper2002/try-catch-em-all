@@ -11,8 +11,9 @@ import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
 class PokemonInfoCard extends StatefulWidget {
   final String? id;
+  final bool? atTeams;
 
-  const PokemonInfoCard({Key? key, this.id}) : super(key: key);
+  const PokemonInfoCard({Key? key, this.id, this.atTeams}) : super(key: key);
 
   @override
   State<PokemonInfoCard> createState() => _PokemonInfoCardState();
@@ -61,16 +62,19 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
                       )),
                   const SizedBox(height: 20),
                   PokemonImageScreen(sprite: form.spriteFrontDefault!),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await controller.addPokemonParty(
-                          form.id.toString().padLeft(3, '0'), form.name!);
-                    },
-                    child: const Text("Adicionar ao time"),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.darkRed),
-                      elevation: MaterialStateProperty.all(0),
+                  Visibility(
+                    visible: (widget.atTeams != null ? false : true),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await controller.addPokemonParty(
+                            form.id.toString().padLeft(3, '0'), form.name!);
+                      },
+                      child: const Text("Adicionar ao time"),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.darkRed),
+                        elevation: MaterialStateProperty.all(0),
+                      ),
                     ),
                   ),
                   PokemonInfoTab(pageController: pageController),
@@ -104,8 +108,7 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
           }
 
           if (value is PokedexPokemonAddPartySuccessState) {
-            controller.getPokedex();
-            Modular.to.navigate("/");
+            controller.getPokemonForm(widget.id!);
           }
 
           return const Loader(color: Colors.white);

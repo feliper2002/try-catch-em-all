@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
+import 'package:try_catch_em_all/utils/functions/caps_lock_index.dart';
 import 'package:try_catch_em_all/utils/widgets/flat_pokeball.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
@@ -39,8 +40,10 @@ class _TrainerPartyPageState extends State<TrainerPartyPage> {
                 return GestureDetector(
                   onTap: () async {
                     final number = NumberFormat().parse(poke.number).toInt();
-                    await Modular.to
-                        .pushNamed("/info", arguments: {"id": "$number"});
+                    await Modular.to.pushNamed("/info", arguments: {
+                      "id": "$number",
+                      "at_team": true,
+                    });
                   },
                   child: Container(
                     padding:
@@ -51,7 +54,7 @@ class _TrainerPartyPageState extends State<TrainerPartyPage> {
                         const SizedBox(width: 6),
                         Text(poke.number),
                         const Spacer(),
-                        Text(poke.name),
+                        Text(capsLock(poke.name)),
                       ],
                     ),
                   ),

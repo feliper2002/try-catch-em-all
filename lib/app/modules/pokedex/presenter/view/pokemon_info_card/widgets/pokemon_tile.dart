@@ -13,9 +13,8 @@ class PokemonTile extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         await Modular.to.pushNamed('/info', arguments: {
-          'url': pokemon.url,
           'id': (pokemon.number).toString(),
-          'name': pokemon.name,
+          "at_team": null,
         });
       },
       child: Container(
