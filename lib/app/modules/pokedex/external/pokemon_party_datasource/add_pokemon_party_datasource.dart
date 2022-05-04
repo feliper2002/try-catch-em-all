@@ -24,7 +24,7 @@ mutation AddPokemonToParty {
       await connect.mutation(mutation);
     } on HasuraError catch (_) {
       throw DatabaseHasuraConnectionError(
-          "Não foi possível se conectar com o Hasura.");
+          "Você já possui um pokémon com esse número no seu time!");
     } catch (_) {
       throw DatabaseConnectionError("Erro ao se conectar à Database.");
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:try_catch_em_all/app/core/errors/app_errors.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/add_pokemon_party.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/usecases/get_pokedex.dart';
@@ -106,7 +107,12 @@ class PokedexController extends ValueNotifier<PokedexState> {
 
     return response.fold(
       (error) {
-        value = PokedexErrorState(error.message);
+        if (error is DataError) {
+          value = PokedexErrorState(error.message);
+        }
+        if (error is UsecaseDataError) {
+          value = PokedexErrorState(error.message);
+        }
       },
       (_) {
         value = PokedexPokemonAddPartySuccessState();

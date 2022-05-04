@@ -36,6 +36,7 @@ dependencies:
   hasura_connect: ^4.0.0+2
   intl: ^0.17.0
   shared_preferences: ^2.0.13
+  toast: ^0.3.0
   uno: ^1.0.1+3
 
 dev_dependencies:

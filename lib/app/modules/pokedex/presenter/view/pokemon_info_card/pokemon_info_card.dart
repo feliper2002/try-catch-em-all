@@ -6,6 +6,7 @@ import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_info_tab.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
 import 'package:try_catch_em_all/utils/functions/caps_lock_index.dart';
+import 'package:try_catch_em_all/utils/functions/show_toast.dart';
 import 'package:try_catch_em_all/utils/themes/app_colors.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
@@ -105,6 +106,10 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
                 ],
               ),
             );
+          }
+
+          if (value is PokedexErrorState) {
+            showToast(context, value.message!);
           }
 
           if (value is PokedexPokemonAddPartySuccessState) {

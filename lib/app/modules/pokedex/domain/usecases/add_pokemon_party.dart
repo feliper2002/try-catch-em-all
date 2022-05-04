@@ -15,13 +15,19 @@ class AddPokemonParty implements AddPokemonPartyContract {
   @override
   Future<Either<LoadDataError, void>> call(
       String pokemonNumber, String name, String trainerID) async {
-    if (pokemonNumber.isEmpty) {
-      return Left(UsecaseDataError("O número do Pokémon é obrigatório!"));
-    }
-    if (trainerID.isEmpty) {
-      return Left(UsecaseDataError("O ID do(a) treinador(a) é obrigatório!"));
-    }
+    try {
+      final response =
+          await repository.addPokemonParty(pokemonNumber, name, trainerID);
 
-    return repository.addPokemonParty(pokemonNumber, name, trainerID);
+      if (pokemonNumber.isEmpty) {
+        return Left(UsecaseDataError("O número do Pokémon é obrigatório!"));
+      }
+      if (trainerID.isEmpty) {
+        return Left(UsecaseDataError("O ID do(a) treinador(a) é obrigatório!"));
+      }
+      return response;
+    } on LoadDataError catch (e) {
+      throw Left(DataError(e.message));
+    }
   }
 }

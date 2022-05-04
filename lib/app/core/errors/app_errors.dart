@@ -33,3 +33,7 @@ class LoadDataError extends AppFailure {
 class UsecaseDataError extends LoadDataError {
   UsecaseDataError(String message) : super(message);
 }
+
+class DataError extends LoadDataError {
+  DataError(String message) : super(message);
+}
