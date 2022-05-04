@@ -103,7 +103,7 @@ class _TrainerPageState extends State<TrainerPage> {
               ],
             );
           }
-          return const Loader(color: Colors.blue);
+          return const Loader();
         },
       ),
     );
