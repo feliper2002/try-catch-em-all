@@ -42,6 +42,7 @@ class TrainerStorage implements TrainerStorageContract {
   @override
   Future<bool> trainerExists() async {
     final _id = await id;
+    // clear();
     return _id.isNotEmpty;
   }
 }

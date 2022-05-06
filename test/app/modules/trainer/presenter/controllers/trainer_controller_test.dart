@@ -65,6 +65,6 @@ void main() {
         emitValues(
             [isA<LoadingTrainerState>(), isA<SuccessActionTrainerState>()]));
 
-    await controller.createTrainer("Kotori", 20, "Female", "Kalos");
+    await controller.createTrainer("Kotori", "20", "Female", "Kalos");
   });
 }

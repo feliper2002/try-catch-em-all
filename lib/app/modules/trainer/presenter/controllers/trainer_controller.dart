@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/create_trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/delete_trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/get_trainer.dart';
@@ -21,6 +22,8 @@ class TrainerController extends ValueNotifier<TrainerState> {
 
   final nameController = TextEditingController();
   final ageController = TextEditingController();
+  final genderController = TextEditingController(text: "Masculino");
+  final regionController = TextEditingController(text: "Kanto");
 
   Future<String> _getTrainerID() async {
     String _id = '';
@@ -34,8 +37,16 @@ class TrainerController extends ValueNotifier<TrainerState> {
   }
 
   Future<void> createTrainer(
-      String name, int age, String gender, String region) async {
-    final usecase = await createTrainerContract(name, age, gender, region);
+      String name, String age, String gender, String region) async {
+    int _age = 0;
+
+    try {
+      _age = NumberFormat().parse(age).toInt();
+    } on FormatException catch (e) {
+      value = ErrorTrainerState(e.message);
+    }
+
+    final usecase = await createTrainerContract(name, _age, gender, region);
 
     value = LoadingTrainerState();
 
@@ -62,7 +73,7 @@ class TrainerController extends ValueNotifier<TrainerState> {
         value = ErrorTrainerState(error.message);
       },
       (_) async {
-        await storage.clear();
+        await _deleteTrainerFromLocalStorage();
         value = SuccessActionTrainerState();
       },
     );
@@ -83,5 +94,9 @@ class TrainerController extends ValueNotifier<TrainerState> {
         value = SuccessTrainerState(trainer);
       },
     );
+  }
+
+  Future<void> _deleteTrainerFromLocalStorage() async {
+    await storage.clear();
   }
 }

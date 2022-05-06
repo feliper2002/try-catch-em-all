@@ -100,6 +100,14 @@ class _TrainerPageState extends State<TrainerPage> {
                     ],
                   ),
                 ),
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () async {
+                    await controller.deleteTrainer();
+                    Modular.to.navigate("/trainer/create");
+                  },
+                  child: const Text("Deletar Treinador"),
+                ),
               ],
             );
           }
