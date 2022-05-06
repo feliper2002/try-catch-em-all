@@ -51,7 +51,7 @@ class CreateTrainerPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   CustomItemSelect(
-                    values: const ["Masculino", "Feminino", "Gênero Neutro"],
+                    values: const ["Masculino", "Feminino"],
                     controller: controller.genderController,
                   ),
                   const SizedBox(height: 10),

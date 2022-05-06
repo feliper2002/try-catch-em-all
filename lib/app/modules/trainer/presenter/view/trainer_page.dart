@@ -5,6 +5,7 @@ import 'package:try_catch_em_all/app/modules/trainer/states/trainer_states.dart'
 import 'package:try_catch_em_all/utils/themes/app_colors.dart';
 import 'package:try_catch_em_all/utils/themes/app_styles.dart';
 import 'package:try_catch_em_all/utils/widgets/back_button.dart';
+import 'package:try_catch_em_all/utils/widgets/custom_button.dart';
 import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
 class TrainerPage extends StatefulWidget {
@@ -101,12 +102,20 @@ class _TrainerPageState extends State<TrainerPage> {
                   ),
                 ),
                 const Spacer(),
-                ElevatedButton(
+                CustomButton(
                   onPressed: () async {
                     await controller.deleteTrainer();
                     Modular.to.navigate("/trainer/create");
                   },
-                  child: const Text("Deletar Treinador"),
+                  child: Text(
+                    (trainer.gender == "Masculino")
+                        ? "Deletar Treinador"
+                        : "Deletar Treinadora",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             );
