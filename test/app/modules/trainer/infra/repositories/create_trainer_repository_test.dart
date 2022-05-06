@@ -19,7 +19,7 @@ void main() {
 
   test('Should answer to Right at fold on CreateTrainer', () async {
     when(() => database.createTrainer(any(), any(), any(), any()))
-        .thenAnswer((_) async => const Right(dynamic));
+        .thenAnswer((_) async => "id");
 
     final response =
         await repository.createTrainer("Kotori", 20, "Female", "Sinnoh");

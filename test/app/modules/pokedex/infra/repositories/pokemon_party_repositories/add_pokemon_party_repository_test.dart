@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:try_catch_em_all/app/core/errors/app_errors.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/infra/datasource/pokemon_party_datasource_contracts/add_pokemon_party_datasource_contract.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/infra/repositories/pokemon_party_repositories/add_pokemon_party_repository.dart';
 
@@ -19,10 +18,10 @@ void main() {
 
   test('Should answer to Right at fold on AddPokemonParty repository',
       () async {
-    when(() => datasource.addPokemonParty(any(), any()))
+    when(() => datasource.addPokemonParty(any(), any(), any()))
         .thenAnswer((_) async => const Right(dynamic));
 
-    final response = await repository.addPokemonParty("100", "ID");
+    final response = await repository.addPokemonParty("100", "ID", "trainerID");
 
     expect(response.fold((l) => l, (r) {}), isA<dynamic>());
   });

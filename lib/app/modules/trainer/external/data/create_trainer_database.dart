@@ -12,7 +12,7 @@ class CreateTrainerDatabase implements CreateTrainerDatabaseContract {
       String name, int age, String gender, String region) async {
     var mutation = '''
     mutation CreateTrainer {
-  insert_trainers(objects: {name: $name, age: $age, gender: $gender, region: $region}) {
+  insert_trainers(objects: {name: "$name", age: $age, gender: "$gender", region: "$region"}) {
     affected_rows
     returning {
       id

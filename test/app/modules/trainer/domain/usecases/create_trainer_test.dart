@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:try_catch_em_all/app/core/errors/app_errors.dart';
+import 'package:try_catch_em_all/app/modules/trainer/domain/entities/trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/repositories/create_trainer_repository_contract.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/create_trainer.dart';
 
@@ -19,7 +20,7 @@ void main() {
 
   test('Should Create a Trainer', () async {
     when(() => repository.createTrainer(any(), any(), any(), any()))
-        .thenAnswer((_) async => const Right(dynamic));
+        .thenAnswer((_) async => const Right("id"));
 
     final response = await usecase("nome", 20, "male", "Kalos");
 
@@ -29,7 +30,7 @@ void main() {
 
   test('Should throw an Error if some field is invalid', () async {
     when(() => repository.createTrainer(any(), any(), any(), any()))
-        .thenAnswer((_) async => const Right(dynamic));
+        .thenAnswer((_) async => const Right("id"));
 
     /// [Invalid Fields]:
     ///

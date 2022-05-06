@@ -11,6 +11,7 @@ import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/delete_trai
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/get_trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/presenter/controllers/trainer_controller.dart';
 import 'package:try_catch_em_all/app/modules/trainer/states/trainer_states.dart';
+import 'package:try_catch_em_all/app/modules/trainer/storage/trainer_storage.dart';
 import 'package:value_listenable_test/value_listenable_test.dart';
 
 class CreateTrainerRepositoryMock extends Mock
@@ -34,6 +35,8 @@ void main() {
   late GetTrainer getTrainer;
   late GetTrainerRepositoryMock getTrainerRepository;
 
+  late TrainerStorage storage;
+
   setUpAll(() {
     createTrainerRepository = CreateTrainerRepositoryMock();
     createTrainer = CreateTrainer(createTrainerRepository);
@@ -44,7 +47,10 @@ void main() {
     getTrainerRepository = GetTrainerRepositoryMock();
     getTrainer = GetTrainer(getTrainerRepository);
 
-    controller = TrainerController(createTrainer, deleteTrainer, getTrainer);
+    storage = TrainerStorage();
+
+    controller =
+        TrainerController(createTrainer, deleteTrainer, getTrainer, storage);
   });
 
   test(
@@ -52,13 +58,13 @@ void main() {
       () async {
     when(() =>
             createTrainerRepository.createTrainer(any(), any(), any(), any()))
-        .thenAnswer((_) async => const Right(dynamic));
+        .thenAnswer((_) async => const Right("id"));
 
     expect(
         controller,
         emitValues(
             [isA<LoadingTrainerState>(), isA<SuccessActionTrainerState>()]));
 
-    await controller.createTrainer("Kotori", 20, "Female", "Kalos");
+    await controller.createTrainer("Kotori", "20", "Female", "Kalos");
   });
 }
