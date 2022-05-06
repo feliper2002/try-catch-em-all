@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:try_catch_em_all/app/core/errors/app_errors.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokedex.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/domain/repositories/pokedex_contract/pokedex_contract.dart';
-import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
 
 abstract class GetPokedexContract {
-  Future<Either<PokedexErrorState, Pokedex>> call(String pokedexID);
+  Future<Either<LoadDataError, Pokedex>> call(String pokedexID);
 }
 
 class GetPokedex implements GetPokedexContract {
@@ -13,7 +13,7 @@ class GetPokedex implements GetPokedexContract {
   GetPokedex(this.repository);
 
   @override
-  Future<Either<PokedexErrorState, Pokedex>> call(String pokedexID) async {
+  Future<Either<LoadDataError, Pokedex>> call(String pokedexID) async {
     Map<String, dynamic> errors = {};
 
     if (pokedexID.isEmpty) {
@@ -21,7 +21,7 @@ class GetPokedex implements GetPokedexContract {
     }
 
     if (errors.isNotEmpty) {
-      return Left(PokedexErrorState(errors['id']));
+      return Left(UsecaseDataError(errors['id']));
     }
 
     return await repository.getPokedex(pokedexID);

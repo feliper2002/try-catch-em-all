@@ -15,7 +15,7 @@ void main() {
     datasource = PokedexDatasource(client);
   });
 
-  test('Should return a JSON response', () async {
+  test('Should return a PokedexModel from JSON response', () async {
     when(() => client.get(any())).thenAnswer(
       (_) async => Response(
         headers: {},
