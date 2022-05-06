@@ -1,3 +1,5 @@
+// ignore_for_file: void_checks
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -17,10 +19,10 @@ void main() {
   });
 
   test('Should answer to Right at AddPokemonParty usecase call', () async {
-    when(() => repository.addPokemonParty(any(), any()))
+    when(() => repository.addPokemonParty(any(), any(), any()))
         .thenAnswer((_) async => const Right(dynamic));
 
-    final usecase = await addPokemonParty("100", "ID");
+    final usecase = await addPokemonParty("100", "ID", "trainerID");
 
     expect(usecase.fold((l) => l, (r) {}), isA<dynamic>());
   });
