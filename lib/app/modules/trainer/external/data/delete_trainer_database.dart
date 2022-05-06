@@ -11,10 +11,17 @@ class DeleteTrainerDatabase implements DeleteTrainerDatabaseContract {
   Future<void> deleteTrainer(String id) async {
     var mutation = '''
 mutation DeleteTrainer {
+  delete_pokemon(where: {trainer_id: {_eq: "$id"}}) {
+    returning {
+      name
+    }
+  }
+  
   delete_trainers_by_pk(id: "$id") {
     name
   }
 }
+
 ''';
 
     try {

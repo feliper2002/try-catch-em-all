@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:try_catch_em_all/app/core/errors/app_errors.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/create_trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/delete_trainer.dart';
 import 'package:try_catch_em_all/app/modules/trainer/domain/usecases/get_trainer.dart';
@@ -70,7 +71,12 @@ class TrainerController extends ValueNotifier<TrainerState> {
 
     usecase.fold(
       (error) {
-        value = ErrorTrainerState(error.message);
+        if (error is UsecaseDataError) {
+          value = ErrorTrainerState("[${error.runtimeType}]: ${error.message}");
+        }
+        if (error is DataError) {
+          value = ErrorTrainerState("[${error.runtimeType}]: ${error.message}");
+        }
       },
       (_) async {
         await _deleteTrainerFromLocalStorage();
