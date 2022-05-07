@@ -97,11 +97,12 @@ class PokedexController extends ValueNotifier<PokedexState> {
     );
   }
 
-  Future<void> addPokemonParty(String pokemonNumber, String name) async {
+  Future<void> addPokemonParty(
+      String pokemonNumber, String name, String url) async {
     final trainerID = await _getTrainerID();
 
     final response =
-        await _addPokemonPartyUsecase(pokemonNumber, name, trainerID);
+        await _addPokemonPartyUsecase(pokemonNumber, name, trainerID, url);
 
     value = PokedexLoadingState();
 

@@ -9,13 +9,14 @@ class AddPokemonPartyDatasource implements AddPokemonPartyDatasourceContract {
 
   @override
   Future<void> addPokemonParty(
-      String pokemonNumber, String name, String trainerID) async {
+      String pokemonNumber, String name, String trainerID, String url) async {
     var mutation = '''
 mutation AddPokemonToParty {
-  insert_pokemon_one(object: {num: "$pokemonNumber", name: "$name", trainer_id: "$trainerID"}) {
+  insert_pokemon_one(object: {num: "$pokemonNumber", name: "$name", trainer_id: "$trainerID", url: "$url"}) {
     trainer_id
     num
     name
+    url
   }
 }
 ''';
