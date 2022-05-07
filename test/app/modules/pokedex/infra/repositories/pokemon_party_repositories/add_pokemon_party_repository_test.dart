@@ -18,10 +18,11 @@ void main() {
 
   test('Should answer to Right at fold on AddPokemonParty repository',
       () async {
-    when(() => datasource.addPokemonParty(any(), any(), any()))
+    when(() => datasource.addPokemonParty(any(), any(), any(), any()))
         .thenAnswer((_) async => const Right(dynamic));
 
-    final response = await repository.addPokemonParty("100", "ID", "trainerID");
+    final response =
+        await repository.addPokemonParty("100", "ID", "trainerID", "url");
 
     expect(response.fold((l) => l, (r) {}), isA<dynamic>());
   });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/domain/entities/pokemon_form.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/card_page_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/pages/poke_desc_page.dart';
@@ -15,9 +16,11 @@ import 'package:try_catch_em_all/utils/widgets/loader.dart';
 
 class PokemonInfoCard extends StatefulWidget {
   final String? id;
+  final String? url;
   final bool? atTeams;
 
-  const PokemonInfoCard({Key? key, this.id, this.atTeams}) : super(key: key);
+  const PokemonInfoCard({Key? key, this.id, this.atTeams, this.url})
+      : super(key: key);
 
   @override
   State<PokemonInfoCard> createState() => _PokemonInfoCardState();
@@ -41,6 +44,8 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
 
   final pageController = CardPageController();
 
+  PokemonForm form = PokemonForm();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -53,13 +58,21 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
       body: ValueListenableBuilder(
         valueListenable: controller,
         builder: (context, value, child) {
+          child = const Loader();
+          if (value is PokedexLoadingState) {
+            child = const Loader();
+          }
+          if (value is PokedexErrorState) {
+            showToast(context, value.message!);
+          }
+
           if (value is PokedexPokemonFormSuccessState) {
-            final form = value.form;
-            return SingleChildScrollView(
+            form = value.form;
+            child = SingleChildScrollView(
               child: Column(
                 children: [
                   Text(
-                      "${capsLock(form.name!)} #${form.id.toString().padLeft(3, '0')}",
+                      "${capsLock(form.name ?? "")} #${form.id.toString().padLeft(3, '0')}",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -70,8 +83,12 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
                     visible: (widget.atTeams != null ? false : true),
                     child: ElevatedButton(
                       onPressed: () async {
+                        final url = widget.url;
                         await controller.addPokemonParty(
-                            form.id.toString().padLeft(3, '0'), form.name!);
+                          form.id.toString().padLeft(3, '0'),
+                          form.name!,
+                          url!,
+                        );
                       },
                       child: const Text("Adicionar ao time"),
                       style: ButtonStyle(
@@ -86,12 +103,12 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
                     height: size.height * .5,
                     child: PageView(
                       controller: pageController.pageController,
-                      onPageChanged: (page) {
+                      onPageChanged: (page) async {
                         pageController.changeToPageIndex(page);
                       },
                       children: [
                         PokeInfoPage(form: form),
-                        const PokeDescriptionPage(),
+                        PokeDescriptionPage(url: widget.url!),
                         const PokeStatsPage(),
                       ],
                     ),
@@ -101,15 +118,10 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
             );
           }
 
-          if (value is PokedexErrorState) {
-            showToast(context, value.message!);
-          }
-
           if (value is PokedexPokemonAddPartySuccessState) {
             controller.getPokemonForm(widget.id!);
           }
-
-          return const Loader(color: Colors.white);
+          return child;
         },
       ),
     );

@@ -19,10 +19,10 @@ void main() {
   });
 
   test('Should answer to Right at AddPokemonParty usecase call', () async {
-    when(() => repository.addPokemonParty(any(), any(), any()))
+    when(() => repository.addPokemonParty(any(), any(), any(), any()))
         .thenAnswer((_) async => const Right(dynamic));
 
-    final usecase = await addPokemonParty("100", "ID", "trainerID");
+    final usecase = await addPokemonParty("100", "ID", "trainerID", "url");
 
     expect(usecase.fold((l) => l, (r) {}), isA<dynamic>());
   });
