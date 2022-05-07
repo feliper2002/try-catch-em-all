@@ -14,7 +14,7 @@ class DeleteTrainer implements DeleteTrainerContract {
   @override
   Future<Either<LoadDataError, void>> call(String id) async {
     if (id.isEmpty) {
-      return Left(LoadDataError("O ID do(a) treinador(a) é obrigatório!"));
+      return Left(UsecaseDataError("O ID do(a) treinador(a) é obrigatório!"));
     }
 
     return repository.deleteTrainer(id);

@@ -82,6 +82,7 @@ class PokedexModule extends Module {
             child: (_, args) => PokemonInfoCard(
                   id: args.data['id'],
                   atTeams: args.data['at_team'],
+                  url: args.data['url'],
                 )),
         ChildRoute('/party', child: (_, args) => const TrainerPartyPage()),
       ];

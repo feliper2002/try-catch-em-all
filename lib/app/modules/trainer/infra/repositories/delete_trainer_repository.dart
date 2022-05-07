@@ -16,6 +16,8 @@ class DeleteTrainerRepository implements DeleteTrainerRepositoryContract {
     } on DatabaseConnectionError catch (e) {
       throw Left(LoadDataError(e.message));
     } on DatabaseHasuraConnectionError catch (e) {
+      print(id);
+      print(e.message);
       throw Left(LoadDataError(e.message));
     }
   }
