@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/card_page_controller.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/controllers/pokedex_controller.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/pages/poke_desc_page.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/pages/poke_info_page.dart';
+import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/pages/poke_stats_page.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_image_screen.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/presenter/view/pokemon_info_card/widgets/pokemon_info_tab.dart';
 import 'package:try_catch_em_all/app/modules/pokedex/states/pokedex_state.dart';
@@ -83,23 +86,13 @@ class _PokemonInfoCardState extends State<PokemonInfoCard> {
                     height: size.height * .5,
                     child: PageView(
                       controller: pageController.pageController,
-                      physics: const NeverScrollableScrollPhysics(),
+                      onPageChanged: (page) {
+                        pageController.changeToPageIndex(page);
+                      },
                       children: [
-                        Container(
-                          height: size.height * .5,
-                          width: size.width,
-                          color: Colors.white,
-                        ),
-                        Container(
-                          height: size.height * .5,
-                          width: size.width,
-                          color: Colors.grey,
-                        ),
-                        Container(
-                          height: size.height * .5,
-                          width: size.width,
-                          color: Colors.grey[400],
-                        ),
+                        PokeInfoPage(form: form),
+                        const PokeDescriptionPage(),
+                        const PokeStatsPage(),
                       ],
                     ),
                   ),

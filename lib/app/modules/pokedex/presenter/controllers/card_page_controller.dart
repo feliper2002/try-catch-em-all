@@ -6,6 +6,10 @@ class CardPageController {
   final pageController = PageController();
   late int _index;
 
+  changeToPageIndex(int page) {
+    pageController.jumpToPage(page);
+  }
+
   changeToPage(PokemonCardViewPage page) {
     switch (page) {
       case PokemonCardViewPage.info:
